@@ -4,10 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="Jamify" suffix=" · Phoenix Framework">
+    <.live_title default="Home page" prefix="Jamify - ">
       {assigns[:page_title]}
     </.live_title>
+    <link phx-track-static rel="icon" type="image/gif" href={~p"/icon.gif"} />
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <link phx-track-static rel="preconnect" href="https://fonts.googleapis.com" />
+    <link phx-track-static rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      phx-track-static
+      href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap"
+      rel="stylesheet"
+    />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>

@@ -18,6 +18,9 @@ defmodule JamifyWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    get "/auth/spotify", AuthController, :request
+    get "/auth/spotify/callback", AuthController, :callback
   end
 
   # Other scopes may use custom stacks.

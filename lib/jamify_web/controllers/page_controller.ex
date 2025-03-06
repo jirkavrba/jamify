@@ -2,8 +2,10 @@ defmodule JamifyWeb.PageController do
   use JamifyWeb, :controller
 
   def home(conn, _params) do
-    # The home page is often custom made,
-    # so skip the default app layout.
-    render(conn, :home)
+    jam_session_id = get_session(conn, :jam_session_id)
+
+    conn
+    |> assign(:jam_session_id, jam_session_id)
+    |> render(:home)
   end
 end

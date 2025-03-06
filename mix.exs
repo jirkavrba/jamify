@@ -53,7 +53,8 @@ defmodule Jamify.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:ueberauth, "~> 0.10"},
-      {:ueberauth_spotify, git: "https://github.com/jirkavrba/ueberauth_spotify", tag: "v0.1.0"}
+      {:ueberauth_spotify, git: "https://github.com/jirkavrba/ueberauth_spotify", tag: "v0.1.0"},
+      {:mnemonic_slugs, "~> 0.0.3"}
     ]
   end
 

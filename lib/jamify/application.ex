@@ -11,6 +11,8 @@ defmodule Jamify.Application do
       JamifyWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:jamify, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Jamify.PubSub},
+      {Jamify.JamSessionSupervisor, []},
+      {Registry, name: :jam_session_registry, keys: :unique},
       # Start a worker by calling: Jamify.Worker.start_link(arg)
       # {Jamify.Worker, arg},
       # Start to serve requests, typically the last entry

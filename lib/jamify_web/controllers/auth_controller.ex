@@ -1,6 +1,9 @@
 defmodule JamifyWeb.AuthController do
   use JamifyWeb, :controller
 
+  alias Jamify.JamSession
+  alias Jamify.JamSessionSupervisor
+
   plug Ueberauth, provider: :spotify
 
   def callback(%{assigns: %{ueberauth_failure: %Ueberauth.Failure{}}} = conn, _params) do
@@ -10,14 +13,13 @@ defmodule JamifyWeb.AuthController do
   end
 
   def callback(%{assigns: %{ueberauth_auth: %Ueberauth.Auth{} = auth}} = conn, _params) do
-    # TODO: Create a new Jam session linked to the account
-    jam_session_id = "452cdd2a27bc262cdc1bdae6a1a00f5a"
+    session = JamSession.create_from_spotify_auth(auth)
 
-    dbg(auth)
+    JamSessionSupervisor.start_session_server(session)
 
     conn
     |> clear_session()
-    |> put_session(:jam_session_id, jam_session_id)
-    |> redirect(to: ~p"/session/#{jam_session_id}")
+    |> put_session(:jam_session, session)
+    |> redirect(to: ~p"/session")
   end
 end

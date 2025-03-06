@@ -21,6 +21,11 @@ defmodule JamifyWeb.Router do
 
     get "/auth/spotify", AuthController, :request
     get "/auth/spotify/callback", AuthController, :callback
+
+    get "/session", SessionController, :manage_session
+    post "/session/stop", SessionController, :stop_session
+
+    live "/jam/:session_slug", Live.Jam
   end
 
   # Other scopes may use custom stacks.

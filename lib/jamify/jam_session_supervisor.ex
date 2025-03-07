@@ -18,8 +18,13 @@ defmodule Jamify.JamSessionSupervisor do
   end
 
   def stop_session_server(%Jamify.JamSession{} = session) do
-    case JamSessionServer.find_server_by_slug(session) do
-      pid when is_pid(pid) -> DynamicSupervisor.terminate_child(__MODULE__, pid)
+    case Registry.lookup(JamSessionServer.registry(), session.id) do
+      [{pid, _}] when is_pid(pid) ->
+        Phoenix.PubSub.broadcast!(Jamify.PubSub, "jam:#{session.id}", :jam_session_terminated)
+        DynamicSupervisor.terminate_child(__MODULE__, pid)
+
+      _ ->
+        {:error, :jam_session_server_not_found}
     end
   end
 end

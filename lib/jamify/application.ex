@@ -2,6 +2,7 @@ defmodule Jamify.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
+  alias Jamify.JamSessionServer
 
   use Application
 
@@ -12,7 +13,7 @@ defmodule Jamify.Application do
       {DNSCluster, query: Application.get_env(:jamify, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Jamify.PubSub},
       {Jamify.JamSessionSupervisor, []},
-      {Registry, name: :jam_session_registry, keys: :unique},
+      {Registry, name: JamSessionServer.registry(), keys: :unique},
       # Start a worker by calling: Jamify.Worker.start_link(arg)
       # {Jamify.Worker, arg},
       # Start to serve requests, typically the last entry

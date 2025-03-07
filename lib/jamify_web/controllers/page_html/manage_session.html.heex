@@ -1,14 +1,10 @@
 <div class="flex flex-col items-start gap-8">
   <h1 class="text-3xl font-black">Your Jamify session</h1>
 
-  <div class="p-4 font-mono rounded-xl bg-neutral-100 text-neutral-500">
-    {@jam_session.id}
-  </div>
-
   <div class="flex flex-col gap-2 bg-spotify/10 p-8 rounded-xl">
     <p>Share this URL with others to join the jam:</p>
-    <div class="text-xl font-bold font-mono text-black">
-      {url(~p"/jam/#{@jam_session.slug}")}
+    <div class="text-xl font-bold font-mono text-spotify">
+      {url(~p"/jam/#{@jam_session.id}")}
     </div>
   </div>
 

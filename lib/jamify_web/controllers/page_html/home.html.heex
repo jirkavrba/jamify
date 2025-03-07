@@ -1,15 +1,15 @@
-<div class="w-full flex flex-col items-start gap-4 mx-20">
-  <%= if is_nil(@jam_session_id) do %>
+<div class="w-full flex flex-col items-start gap-4">
+  <%= if is_nil(@jam_session) do %>
     <p class="font-bold">Login with Spotify to start a new Jamify session!</p>
 
     <a href={~p"/auth/spotify"} class="bg-green-700 font-bold rounded-xl px-8 py-4 text-white">
       Continue with spotify
     </a>
   <% else %>
-    <div class="w-full flex flex-row gap-4 items-center p-4 rounded-3xl bg-red-50 my-8">
-      <div class="w-4 h-4 bg-red-500 rounded-full ring-4 ring-red-200 animate-pulse ml-4" />
+    <div class="w-full flex flex-row gap-4 items-center p-4 rounded-3xl bg-red-950 my-8">
+      <div class="w-4 h-4 bg-red-500 rounded-full ring-4 ring-white animate-pulse ml-4" />
       <div class="flex-grow">
-        <div class="font-bold text-red-800">You currently have an active Jamify session</div>
+        <div class="font-bold text-red-400">You currently have an active Jamify session</div>
         <p class="text-xs">
           Click the button on the right to view / manage the session.
         </p>

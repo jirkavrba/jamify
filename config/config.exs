@@ -55,7 +55,7 @@ config :ueberauth, Ueberauth,
   providers: [
     spotify: {
       Ueberauth.Strategy.Spotify,
-      default_scope: "user-read-currently-playing"
+      default_scope: "user-read-currently-playing user-read-playback-state"
     }
   ]
 

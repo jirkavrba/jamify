@@ -15,6 +15,7 @@ module.exports = {
     extend: {
       colors: {
         spotify: "#1ED760",
+        youtube: "#FF0000",
       },
       fontFamily: {
         fancy: ["'Kaushan Script'", "cursive"],

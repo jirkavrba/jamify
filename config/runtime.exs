@@ -20,14 +20,6 @@ if System.get_env("PHX_SERVER") do
   config :jamify, JamifyWeb.Endpoint, server: true
 end
 
-config :ueberauth, Ueberauth,
-  providers: [
-    spotify: {
-      Ueberauth.Strategy.Spotify,
-      default_scope: "user-read-currently-playing user-read-playback-state"
-    }
-  ]
-
 config :ueberauth, Ueberauth.Strategy.Spotify.OAuth,
   client_id: System.get_env("SPOTIFY_CLIENT_ID"),
   client_secret: System.get_env("SPOTIFY_CLIENT_SECRET")

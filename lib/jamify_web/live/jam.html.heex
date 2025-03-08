@@ -1,4 +1,4 @@
-<div class="w-full flex flex-col items-stretch gap-10">
+<div class="w-full flex flex-col items-stretch gap-8">
   <div class="flex flex-col items-center justify-center gap-2">
     <p class="uppercase tracking-wide font-black text-neutral-500 text-xs">Jam hosted by</p>
     <figure class="flex flex-row items-center gap-4">
@@ -7,6 +7,17 @@
         {@session.host.name}
       </figcaption>
     </figure>
+  </div>
+
+  <div class="flex flex-row items-center justify-center gap-10">
+    <p class="uppercase tracking-wide font-black text-neutral-500 text-xs">
+      {length(@listeners)} connected listener{if length(@listeners) == 1, do: "", else: "s"}
+    </p>
+    <p class="flex flex-row items-center justify-center gap-2">
+      <%= for listener <- @listeners do %>
+        {listener.country_emoji}
+      <% end %>
+    </p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mx-4">

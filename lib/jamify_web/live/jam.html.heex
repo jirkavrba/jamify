@@ -9,7 +9,7 @@
     </figure>
   </div>
 
-  <div class="grid grid-cols-2 gap-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mx-4">
     <div class="flex flex-col gap-4">
       <h1 class="text-2xl font-black">Currently playing</h1>
 
@@ -69,7 +69,7 @@
             </div>
           <% else %>
             <iframe
-              class="w-full h-96 rounded-xl"
+              class="w-full h-96 rounded-xl bg-neutral-900"
               allow="autoplay"
               src={"https://youtube.com/embed/#{@session.currently_playing.youtube_video_id}?autoplay=1&mute=0"}
             />
@@ -81,7 +81,7 @@
 
             <p class="text-neutral-500">
               Also, some publishers are marking their videos as "Youtube Music only".<br />
-              Those videos cannot be embedded and you'll need to use the Youtube Music link below, if you have a Youtube Music account.
+              Those videos cannot be embedded and you'll need to use the Youtube Music link above, if you have a Youtube Music account.
             </p>
           <% end %>
         </div>

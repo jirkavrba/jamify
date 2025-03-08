@@ -28,7 +28,7 @@ defmodule Jamify.SpotifyApi do
         {
           response.body["currently_playing"] |> map_song(),
           response.body["queue"]
-          |> Enum.take(5)
+          |> Enum.take(10)
           |> Enum.map(&map_song/1)
           |> Enum.reject(&is_nil/1)
         }

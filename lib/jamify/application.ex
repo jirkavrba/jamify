@@ -17,7 +17,6 @@ defmodule Jamify.Application do
       # Start a worker by calling: Jamify.Worker.start_link(arg)
       # {Jamify.Worker, arg},
       # Start to serve requests, typically the last entry
-      JamifyWeb.Pressence,
       JamifyWeb.Endpoint
     ]
 

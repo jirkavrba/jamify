@@ -19,6 +19,6 @@ defmodule JamifyWeb.Live.Jam do
   end
 
   def handle_info(:jam_session_terminated, socket) do
-    {:noreply, push_redirect(socket, to: ~p"/jam/not-found")}
+    {:noreply, push_navigate(socket, to: ~p"/jam/not-found")}
   end
 end

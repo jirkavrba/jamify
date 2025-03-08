@@ -20,13 +20,20 @@ defmodule Jamify.JamSession do
 
   @type queue :: list(song())
 
+  @type video_cache() :: %{
+          String.t() => %{
+            video_id: String.t() | nil,
+            expiration: DateTime.t()
+          }
+        }
+
   @type t :: %__MODULE__{
           id: String.t(),
           host: host(),
           spotify_credentials: Ueberauth.Auth.Credentials.t(),
           currently_playing: song() | nil,
           queued_songs: queue(),
-          youtube_video_id: String.t() | nil
+          youtube_videos_cache: video_cache()
         }
 
   @enforce_keys [
@@ -39,9 +46,9 @@ defmodule Jamify.JamSession do
     :id,
     :host,
     :spotify_credentials,
-    :currently_playing,
-    :queued_songs,
-    :youtube_video_id
+    currently_playing: nil,
+    queued_songs: [],
+    youtube_videos_cache: %{}
   ]
 
   def create_from_spotify_auth(%Ueberauth.Auth{} = auth) do

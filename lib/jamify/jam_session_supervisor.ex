@@ -1,8 +1,11 @@
 defmodule Jamify.JamSessionSupervisor do
-  use DynamicSupervisor
+  use DynamicSupervisor, restart: :permanent
 
   require Logger
   alias Jamify.JamSessionServer
+
+  # Forcily terminate the session after 6 hours
+  @session_time_to_live 6 * 60 * 60 * 1000
 
   @impl DynamicSupervisor
   def init(_init_arg) do
@@ -14,7 +17,8 @@ defmodule Jamify.JamSessionSupervisor do
   end
 
   def start_session_server(%Jamify.JamSession{} = session) do
-    DynamicSupervisor.start_child(__MODULE__, {JamSessionServer, session}) |> dbg()
+    schedule_jam_termination(session)
+    DynamicSupervisor.start_child(__MODULE__, {JamSessionServer, session})
   end
 
   def stop_session_server(%Jamify.JamSession{} = session) do
@@ -26,5 +30,12 @@ defmodule Jamify.JamSessionSupervisor do
       _ ->
         {:error, :jam_session_server_not_found}
     end
+  end
+
+  def schedule_jam_termination(session) do
+    Task.async(fn ->
+      Process.sleep(@session_time_to_live)
+      stop_session_server(session)
+    end)
   end
 end

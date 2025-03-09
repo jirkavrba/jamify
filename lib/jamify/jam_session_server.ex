@@ -118,8 +118,6 @@ defmodule Jamify.JamSessionServer do
         youtube_videos_cache: updated_video_cache
     }
 
-    # TODO: Trigger an asynchronous preload of youtube videos for top 3? songs in the queue
-
     updated_session
   end
 

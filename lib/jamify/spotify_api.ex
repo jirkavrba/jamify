@@ -1,5 +1,9 @@
 defmodule Jamify.SpotifyApi do
+  require Logger
+
+  alias Plug.BasicAuth
   alias Jamify.JamSession
+
   # Refresh spotify credentials 5 minutes before expiration
   @credentials_refresh_treshold 300
 
@@ -9,7 +13,7 @@ defmodule Jamify.SpotifyApi do
     remaining_validity = DateTime.diff(expiration, now)
 
     if remaining_validity <= @credentials_refresh_treshold do
-      # TODO: Refresh spotify credentials using OAuth2
+      perform_access_token_refresh(credentials)
     else
       credentials
     end
@@ -52,5 +56,38 @@ defmodule Jamify.SpotifyApi do
       },
       youtube_video_id: nil
     }
+  end
+
+  defp perform_access_token_refresh(%Ueberauth.Auth.Credentials{} = credentials) do
+    client = Ueberauth.Strategy.Spotify.OAuth.client()
+    authorization = BasicAuth.encode_basic_auth(client.client_id, client.client_secret)
+
+    response =
+      Req.post(
+        client.token_url,
+        headers: %{
+          "authorization" => authorization
+        },
+        form: %{
+          "grant_type" => "refresh_token",
+          "refresh_token" => credentials.refresh_token,
+          "client_id" => client.client_id
+        }
+      )
+
+    case response do
+      {:ok, %Req.Response{status: 200, body: body}} ->
+        expiration =
+          DateTime.utc_now()
+          |> DateTime.add(body["expires_in"], :second)
+          |> DateTime.to_unix(:second)
+          |> dbg()
+
+        %{credentials | expires_at: expiration, token: body["access_token"]}
+
+      _ ->
+        Logger.error("Error refreshing credentials: #{response}.")
+        credentials
+    end
   end
 end

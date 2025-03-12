@@ -25,7 +25,7 @@
               style="animation-duration: 15s"
               class="absolute left-0 top-0 size-64 bg-neutral-500 rounded-full animate-spin"
             />
-            <div class="absolute left-[50%] top-[50%] w-[1px] h-[1px] bg-neutral-800 size-0 ring-[1.5rem] ring-neutral-800 rounded-full shadow-inner" />
+            <div class="absolute left-[50%] top-[50%] w-16 h-16 transform -translate-x-8 -translate-y-8 bg-neutral-800 rounded-full shadow-inner" />
           </div>
 
           <div class="w-full flex flex-col items-center bg-white/10 shadow-xl p-8 rounded-xl gap-4">
@@ -74,7 +74,7 @@
               src={"https://youtube.com/embed/#{@session.currently_playing.youtube_video_id}?autoplay=1&mute=0"}
             />
 
-            <p class="text-neutral-500">
+            <p class="w-full bg-spotify/20 text-white font-bold p-6 rounded-xl">
               Because of browser limitations, you need to click play on the first video.<br />
               All additional videos will be properly auto-played.
             </p>
